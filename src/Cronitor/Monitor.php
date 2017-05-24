@@ -18,7 +18,8 @@ class Monitor
   /**
    * Ping a Cronitor endpoint with optional parameters.
    * @method ping
-   * @param string $endpoint A valid Cronitor endpoint (see Cronitor docs for info).
+   * @param string $endpoint A valid Cronitor endpoint to be pinged (see Cronitor docs for info).
+   * @param array $parameters An array of URL query string parameters that will be appended to the ping.
    */
   public function ping (string $endpoint, array $parameters = null)
   {
