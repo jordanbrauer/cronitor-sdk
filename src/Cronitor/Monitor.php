@@ -34,4 +34,16 @@ class Monitor
     // echo $url.PHP_EOL;
     return file_get_contents($url);
   }
+
+  /**
+   * Ping the Cronitor /run endpoint with the ping method
+   * @method run
+   * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
+   */
+  public function run (string $message = null)
+  {
+    return $message ??
+      $this->ping('run', ["msg" => $message]) ??
+      $this->ping('run');
+  }
 }
