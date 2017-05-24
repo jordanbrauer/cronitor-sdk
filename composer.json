@@ -1,7 +1,7 @@
 {
   "name": "jordanbrauer/cronitor-php",
   "description": "A small wrapper object for Cronitor.io cron job monitoring service.",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "plugin",
   "license": "MIT",
   "authors": [
