@@ -4,7 +4,11 @@ A small wrapper object for Cronitor.io cron job monitoring service.
 
 ## Downloading & Installing
 
-_Coming to a Packigist near you!_
+#### Composer
+
+```shell
+$ composer require jordanbrauer/cronitor-php
+```
 
 ## Setup
 
