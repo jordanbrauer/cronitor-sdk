@@ -81,4 +81,13 @@ class Monitor
   {
     return $this->ping("pause/{$duration}");
   }
+
+  /**
+   * Ping the Cronitor /pause endpoint with a duration of 0 to unpause the monitor.
+   * @method start
+   */
+  public function start ()
+  {
+    return $this->ping("pause/0");
+  }
 }
