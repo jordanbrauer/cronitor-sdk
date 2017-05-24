@@ -10,5 +10,8 @@
             "email": "jbrauer.inc@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^6.1"
+    }
 }
