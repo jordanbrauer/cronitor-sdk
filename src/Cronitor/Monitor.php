@@ -8,6 +8,10 @@ class Monitor
   protected $authKey;
   protected $baseUrl;
 
+  /**
+   * @param string $monitorId The unique identifier for your monitor found on Cronitors' dashboard.
+   * @param array $opts An array of options to be passed to the monitor on construction (e.g., auth_key).
+   */
   public function __construct (string $monitorId, array $opts = [])
   {
     $this->monitorId = $monitorId;
@@ -17,7 +21,7 @@ class Monitor
 
   /**
    * Ping a Cronitor endpoint with optional parameters.
-   * @method ping
+   *
    * @param string $endpoint A valid Cronitor endpoint to be pinged (see Cronitor docs for info).
    * @param array $parameters An array of URL query string parameters that will be appended to the ping.
    */
@@ -37,7 +41,7 @@ class Monitor
 
   /**
    * Ping the Cronitor /run endpoint with the ping method.
-   * @method run
+   *
    * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
    */
   public function run (string $message = null)
@@ -48,7 +52,7 @@ class Monitor
 
   /**
    * Ping the Cronitor /complete endpoint with the ping method.
-   * @method complete
+   *
    * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
    */
   public function complete (string $message = null)
@@ -59,10 +63,10 @@ class Monitor
 
   /**
    * Ping the Cronitor /fail endpoint with the ping method.
-   * @method fail
+   *
    * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
    */
-    public function fail (string $message = null)
+  public function fail (string $message = null)
   {
     if ($message) return $this->ping("fail", ["msg" => $message]);
     return $this->ping("fail");
@@ -70,7 +74,7 @@ class Monitor
 
   /**
    * Ping the Cronitor /pause endpoint with the ping method.
-   * @method pause
+   *
    * @param integer $duration A duration in hours to pause the monitor for (see Cronitor docs for more info).
    */
   public function pause (int $duration)
@@ -80,7 +84,6 @@ class Monitor
 
   /**
    * Ping the Cronitor /pause endpoint with a duration of 0 to unpause the monitor.
-   * @method resume
    */
   public function resume ()
   {
