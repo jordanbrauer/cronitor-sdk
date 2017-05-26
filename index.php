@@ -8,7 +8,7 @@ use \Cronitor\Monitor;
 
 $cronitor = new Monitor("monitor_id", [
   "base_url" => "https://cronitor.link",
-  "auth_key" => "your_private_secret_confidential_auth_key",
+  "auth_key" => "your_super_secret_private_confidential_auth_key",
 ]);
 
 $cronitor->run(); // plain run ping
@@ -21,4 +21,4 @@ $cronitor->fail(); // plain fail ping
 $cronitor->fail("Damn Cronitor!"); // fail ping with message
 
 $cronitor->pause(1); // pause for 1 hour
-$cronitor->start(); // resume monitoring
+$cronitor->resume(); // resume monitoring
