@@ -10,13 +10,13 @@ class Monitor
 
   /**
    * @param string $monitorId The unique identifier for your monitor found on Cronitors' dashboard.
-   * @param array $opts An array of options to be passed to the monitor on construction (e.g., auth_key).
+   * @param array $options An array of options to be passed to the monitor on construction (e.g., auth_key).
    */
-  public function __construct (string $monitorId, array $opts = [])
+  public function __construct (string $monitorId, array $options = [])
   {
     $this->monitorId = $monitorId;
-    $this->authKey = $opts["auth_key"] ?? "";
-    $this->baseUrl = $opts["base_url"] ?? "https://cronitor.link";
+    $this->authKey = $options["auth_key"] ?? "";
+    $this->baseUrl = $options["base_url"] ?? "https://cronitor.link";
   }
 
   /**
