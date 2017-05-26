@@ -70,10 +70,10 @@ $cronitor->fail("Damn Cronitor!"); // fail ping with message
 $cronitor->pause(1); // pause for 1 hour
 ```
 
-#### start()
+#### resume()
 
-> `start ()`
+> `resume ()`
 
 ```php
-$cronitor->start(); // resume monitoring
+$cronitor->resume(); // resume monitoring
 ```
