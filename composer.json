@@ -1,7 +1,7 @@
 {
   "name": "jordanbrauer/cronitor-php",
   "description": "A small wrapper object for Cronitor.io cron job monitoring service.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "plugin",
   "license": "MIT",
   "authors": [
@@ -14,7 +14,7 @@
     "tests": "phpunit --configuration='./phpunit.xml' --test-suffix='.spec.php' --color=always ./tests/"
   },
   "require": {
-    "php": ">=7.0.1"
+    "php": ">=7.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.1"
