@@ -43,9 +43,8 @@ class Monitor
    */
   public function run (string $message = null)
   {
-    return $message ??
-      $this->ping("run", ["msg" => $message]) ??
-      $this->ping("run");
+    if ($message) return $this->ping("run", ["msg" => $message]);
+    return $this->ping("run");
   }
 
   /**
@@ -55,9 +54,8 @@ class Monitor
    */
   public function complete (string $message = null)
   {
-    return $message ??
-      $this->ping("complete", ["msg" => $message]) ??
-      $this->ping("complete");
+    if ($message) return $this->ping("complete", ["msg" => $message]);
+    return $this->ping("complete");
   }
 
   /**
@@ -65,11 +63,10 @@ class Monitor
    * @method fail
    * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
    */
-  public function fail (string $message = null)
+    public function fail (string $message = null)
   {
-    return $message ??
-      $this->ping("fail", ["msg" => $message]) ??
-      $this->ping("fail");
+    if ($message) return $this->ping("fail", ["msg" => $message]);
+    return $this->ping("fail");
   }
 
   /**
