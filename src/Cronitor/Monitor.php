@@ -32,7 +32,6 @@ class Monitor
       $queryString = http_build_query($parameters)
       and $url .= "?{$queryString}";
 
-    // echo $url.PHP_EOL;
     return file_get_contents($url);
   }
 
