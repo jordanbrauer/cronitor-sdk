@@ -46,7 +46,5 @@ final class MonitorCallerSpec extends TestCase
 
     public function assert ()
     {
-        $monitor = new MonitorCaller("f00b4r");
-        $monitor->run();
     }
 }

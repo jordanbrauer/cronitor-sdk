@@ -2,21 +2,33 @@
 
 namespace Cronitor;
 
+use LogicException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 trait SettingsResolver
 {
-    protected $settings;
+    private $settings;
 
-    protected function getDefaultSettings (): array
+    protected function getDefaultSettings (OptionsResolver $resolver): array
     {
         throw new LogicException("Please define the default settings for ".get_called_class()." by overriding the ".__FUNCTION__." method");
     }
 
-    protected function configureSettings (array $settings = []): array
+    protected function getRequiredSettings (OptionsResolver $resolver): array
+    {
+        return [];
+    }
+
+    protected function configureSettings (array $userSettings = [], array $definedSettings = []): array
     {
         $resolver = new OptionsResolver;
-        $resolver->setDefaults($this->getDefaultSettings());
-        return $resolver->resolve($settings);
+        # define valid settings w/o defaults
+        if (count($definedSettings) > 0)
+            foreach ($definedSettings as $setting)
+                $resolver->setDefined($setting);
+        # define default & required settings
+        $resolver->setDefaults($this->getDefaultSettings($resolver));
+        $resolver->setRequired($this->getRequiredSettings($resolver));
+        return $resolver->resolve($userSettings);
     }
 }

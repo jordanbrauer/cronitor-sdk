@@ -2,6 +2,8 @@
 
 namespace Cronitor;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 /**
  * @version 2.0.0
  * @since 0.0.1
@@ -10,12 +12,17 @@ namespace Cronitor;
  */
 class MonitorCaller
 {
+    // use SettingsResolver;
+
     /**
      * @var string $id The unique ID of the monitor being called.
      */
-    private $id;
-
     private $client;
+
+    /**
+     * @var array $settings
+     */
+    private $settings;
 
     /**
      * Public constructor for the monitor caller object.
@@ -24,10 +31,25 @@ class MonitorCaller
      */
     public function __construct (array $settings = [])
     {
+        $this->settings = $this->configureSettings($settings, new OptionsResolver);
         $this->client = new Client([
-            "base_uri" => Client::PING_URL,
-            "auth_key" => $this->authKey,
+            "base_uri" => $this->settings["base_uri"],
         ]);
+    }
+
+    protected function configureSettings (array $settings = [], OptionsResolver $resolver): array
+    {
+        $resolver->setDefaults([
+            "base_uri" => Client::PING_URL,
+            "secure" => true,
+        ]);
+        foreach (["id", "auth_key"] as $setting)
+            $resolver->setDefined($setting);
+        $resolver->setRequired(["id"]);
+        if ($resolver->resolve($settings)["secure"] === true)
+            $resolver->setRequired("auth_key");
+
+        return $resolver->resolve($settings);
     }
 
     /**
