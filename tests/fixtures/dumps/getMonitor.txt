@@ -1,0 +1,53 @@
+Cronitor\Monitor\HeartbeatMonitor {
+  #name: "FooBar"
+  #type: "heartbeat"
+  #notifications: Cronitor\Monitor\Notifications\MonitorNotifications {
+    #templates: []
+    #emails: []
+    #slack: array:1 [
+      0 => "https://hooks.slack.com/services/YOUR/SUPER/SECRET_SLACK_CHANNEL_WEBHOOK_LINK"
+    ]
+    #webhooks: []
+  }
+  #rules: array:3 [
+    0 => Cronitor\Monitor\MonitorRule {
+      #ruleType: "complete_ping_not_received"
+      #value: 15
+      #timeUnit: "minutes"
+      #hoursToFollowupAlert: 8
+      #graceSeconds: null
+    }
+    1 => Cronitor\Monitor\MonitorRule {
+      #ruleType: "run_ping_not_received"
+      #value: 15
+      #timeUnit: "minutes"
+      #hoursToFollowupAlert: 8
+      #graceSeconds: null
+    }
+    2 => Cronitor\Monitor\MonitorRule {
+      #ruleType: "ran_longer_than"
+      #value: 15
+      #timeUnit: "minutes"
+      #hoursToFollowupAlert: 8
+      #graceSeconds: null
+    }
+  ]
+  #tags: array:5 [
+    0 => Cronitor\Monitor\MonitorTag {
+      #label: "cron"
+    }
+    1 => Cronitor\Monitor\MonitorTag {
+      #label: "database"
+    }
+    2 => Cronitor\Monitor\MonitorTag {
+      #label: "heartbeat"
+    }
+    3 => Cronitor\Monitor\MonitorTag {
+      #label: "silk"
+    }
+    4 => Cronitor\Monitor\MonitorTag {
+      #label: "sync"
+    }
+  ]
+  #note: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+}

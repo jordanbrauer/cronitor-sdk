@@ -1,0 +1,1 @@
+"{"name":"monitor","type":"heartbeat","notifications":{"templates":[],"emails":["test@example.tld"],"slack":[],"webhooks":[]},"rules":[{"rule_type":"not_on_schedule","time_unit":"hours","hours_to_followup_alert":1,"value":10,"grace_seconds":69}],"tags":["foo","bar"],"note":"Hello World!"}"
