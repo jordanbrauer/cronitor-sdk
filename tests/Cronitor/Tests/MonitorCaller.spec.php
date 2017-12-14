@@ -10,41 +10,43 @@ final class MonitorCallerSpec extends TestCase
 {
     use VarDumperTestTrait;
 
-    protected function setUp ()
-    {
-        # Set up a caller using regular HTTP
-        $this->httpCaller = new MonitorCaller([
-            "id" => "f00b4r",
-            "secure" => false,
-        ]);
-
-        # Set up a caller using secure HTTPS
-        $this->httpsCaller = new MonitorCaller([
-            "id" => "b4zqux",
-            "auth_key" => "your_super_secret_auth_key",
-        ]);
-    }
-
-    protected function tearDown ()
-    {
-        foreach([
-            $this->httpCaller,
-            $this->httpsCaller,
-        ] as $caller) unset($caller);
-    }
-
     /**
      * @test
      */
     public function assertMonitorCallerExists ()
     {
-        foreach ([$this->httpCaller, $this->httpsCaller] as $caller) {
-            $this->assertInternalType("object", $caller);
-            $this->assertInstanceOf(MonitorCaller::class, $caller);
-        }
+        # Set up a caller using regular HTTP
+        $caller = new MonitorCaller([
+            "id" => "t17i35",
+            "auth_key" => "super_secret_authorization_key",
+        ]);
+        $this->assertInternalType("object", $caller);
+        $this->assertInstanceOf(MonitorCaller::class, $caller);
     }
 
-    public function assert ()
+    /**
+     * @test
+     */
+    public function assertUnsecureMonitorThrowsExceptionWithAuthKeyPresent ()
     {
+        $this->expectException("InvalidArgumentException");
+        $caller = new MonitorCaller([
+            "id" => "f00b4r",
+            "secure" => false,
+            "auth_key" => "unsecure_monitor_key_causes_exception",
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function assertSecureMonitorThrowsExceptionWithoutAuthKeyPresent ()
+    {
+        $this->expectException("InvalidArgumentException");
+        $secureCaller = new MonitorCaller([
+            "id" => "84zqux",
+            "secure" => true
+            # @NOTE MISSING auth_key to test for error!
+        ]);
     }
 }

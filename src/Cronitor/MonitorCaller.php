@@ -2,7 +2,8 @@
 
 namespace Cronitor;
 
-use Cronitor\Framework\Http\Client;
+use Cronitor\Framework\Http\Client\MonitorClient;
+use Cronitor\Framework\Http\Repository\Ping\PingRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -13,18 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class MonitorCaller
 {
-    // use SettingsResolver;
-
-    /**
-     * @var string $id The unique ID of the monitor being called.
-     */
-    private $client;
-
-    /**
-     * @var array $settings
-     */
-    private $settings;
-
+    private $repository;
     /**
      * Public constructor for the monitor caller object.
      *
@@ -32,90 +22,86 @@ class MonitorCaller
      */
     public function __construct (array $settings = [])
     {
-        $this->settings = $this->configureSettings($settings, new OptionsResolver);
-        $this->client = new Client([
-            "base_uri" => $this->settings["base_uri"],
-        ]);
+        $settings = $this->configureSettings($settings, new OptionsResolver);
+        $this->repository = new PingRepository(new MonitorClient($settings));
     }
 
     protected function configureSettings (array $settings = [], OptionsResolver $resolver): array
     {
+        $resolver->setDefined(["auth_key", "id"]);
         $resolver->setDefaults([
-            "base_uri" => Client::PING_URL,
             "secure" => true,
+            "base_uri" => MonitorClient::BASE_URL,
         ]);
-        foreach (["id", "auth_key"] as $setting)
-            $resolver->setDefined($setting);
-        $resolver->setRequired(["id"]);
         if ($resolver->resolve($settings)["secure"] === true)
             $resolver->setRequired("auth_key");
-
         return $resolver->resolve($settings);
     }
 
     /**
-     * Ping a Cronitor endpoint with optional parameters.
+     * Generic ping method to wrap the repository methods
      *
-     * @param string $endpoint A valid Cronitor endpoint to be pinged (see Cronitor docs for info).
-     * @param array $parameters An array of URL query string parameters that will be appended to the ping.
+     * @param string $endpoint The name of the monitor action being invoked.
+     * @param mixed $parameter Pass any additional parameters/data that the endpoint may require.
+     * @return RequestInterface
      */
-    public function ping (string $endpoint, array $parameters = null)
+    protected function ping (string $endpoint, $parameter = null)
     {
-        # @TODO
-        return $this->client->get($endpoint, $parameters);
+        $method = $endpoint."Monitor";
+        return $this->repository->$method($parameter);
     }
 
     /**
      * Ping the Cronitor /run endpoint with the ping method.
      *
      * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
+     * @return RequestInterface
      */
     public function run (string $message = null)
     {
-        if ($message)
-            return $this->ping("run", ["msg" => $message]);
-        return $this->ping("run");
+        return $this->ping("run", $message);
     }
 
     /**
      * Ping the Cronitor /complete endpoint with the ping method.
      *
      * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
+     * @return RequestInterface
      */
     public function complete (string $message = null)
     {
-        if ($message)
-            return $this->ping("complete", ["msg" => $message]);
-        return $this->ping("complete");
+        return $this->ping("complete", $message);
     }
 
     /**
      * Ping the Cronitor /fail endpoint with the ping method.
      *
      * @param string $message An optional message to be passed to Cronitor with a max char length of 2048.
+     * @return RequestInterface
      */
     public function fail (string $message = null)
     {
-        if ($message)
-            return $this->ping("fail", ["msg" => $message]);
-        return $this->ping("fail");
+        return $this->ping("fail", $message);
     }
 
     /**
      * Ping the Cronitor /pause endpoint with the ping method.
      *
      * @param integer $duration A duration in hours to pause the monitor for (see Cronitor docs for more info).
+     * @return RequestInterface
      */
     public function pause (int $duration)
     {
-        return $this->ping("pause/{$duration}");
+        return $this->ping("pause", $duration);
     }
 
     /**
      * Ping the Cronitor /pause endpoint with a duration of 0 to unpause the monitor.
+     *
+     * @return RequestInterface
      */
     public function resume ()
     {
-        return $this->ping("pause/0");
+        return $this->ping("resume");
     }
 }
