@@ -2,6 +2,7 @@
 
 namespace Cronitor;
 
+use Cronitor\Framework\Http\Client;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

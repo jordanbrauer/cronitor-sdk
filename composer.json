@@ -32,7 +32,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Cronitor\\Tests\\": "tests"
+      "Cronitor\\": "tests/Cronitor"
     }
   }
 }

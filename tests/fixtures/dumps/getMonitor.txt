@@ -1,7 +1,7 @@
-Cronitor\Monitor\HeartbeatMonitor {
+Cronitor\Component\Monitor\HeartbeatMonitor {
   #name: "FooBar"
   #type: "heartbeat"
-  #notifications: Cronitor\Monitor\Notifications\MonitorNotifications {
+  #notifications: Cronitor\Component\Notification\MonitorNotifications {
     #templates: []
     #emails: []
     #slack: array:1 [
@@ -10,21 +10,21 @@ Cronitor\Monitor\HeartbeatMonitor {
     #webhooks: []
   }
   #rules: array:3 [
-    0 => Cronitor\Monitor\MonitorRule {
+    0 => Cronitor\Component\Rule\MonitorRule {
       #ruleType: "complete_ping_not_received"
       #value: 15
       #timeUnit: "minutes"
       #hoursToFollowupAlert: 8
       #graceSeconds: null
     }
-    1 => Cronitor\Monitor\MonitorRule {
+    1 => Cronitor\Component\Rule\MonitorRule {
       #ruleType: "run_ping_not_received"
       #value: 15
       #timeUnit: "minutes"
       #hoursToFollowupAlert: 8
       #graceSeconds: null
     }
-    2 => Cronitor\Monitor\MonitorRule {
+    2 => Cronitor\Component\Rule\MonitorRule {
       #ruleType: "ran_longer_than"
       #value: 15
       #timeUnit: "minutes"
@@ -33,19 +33,19 @@ Cronitor\Monitor\HeartbeatMonitor {
     }
   ]
   #tags: array:5 [
-    0 => Cronitor\Monitor\MonitorTag {
+    0 => Cronitor\Component\Tag\MonitorTag {
       #label: "cron"
     }
-    1 => Cronitor\Monitor\MonitorTag {
+    1 => Cronitor\Component\Tag\MonitorTag {
       #label: "database"
     }
-    2 => Cronitor\Monitor\MonitorTag {
+    2 => Cronitor\Component\Tag\MonitorTag {
       #label: "heartbeat"
     }
-    3 => Cronitor\Monitor\MonitorTag {
+    3 => Cronitor\Component\Tag\MonitorTag {
       #label: "silk"
     }
-    4 => Cronitor\Monitor\MonitorTag {
+    4 => Cronitor\Component\Tag\MonitorTag {
       #label: "sync"
     }
   ]
